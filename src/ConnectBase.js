@@ -12,6 +12,10 @@ export default class Connect extends React.Component {
     this.config = typeof config === 'function'
       ? config(this.stores, this.flux)
       : config
+
+    this.cb = () => {
+        this.forceUpdate()
+    }
   }
 
   componentWillMount() {
@@ -20,15 +24,16 @@ export default class Connect extends React.Component {
 
   componentDidMount() {
     const stores = this.config.listenTo ? this.call(this.config.listenTo) : []
-    this.storeListeners = stores.map((store) => {
-      return store.listen(() => this.forceUpdate())
+    stores.forEach((store) => {
+      store.listen(this.cb)
     })
 
     if (this.config.didMount) this.call(this.config.didMount)
   }
 
   componentWillUnmount() {
-    this.storeListeners.forEach(unlisten => unlisten())
+    const stores = this.config.listenTo ? this.call(this.config.listenTo) : []
+    stores.forEach(store => store.unlisten(this.cb))
     if (this.config.willUnmount) this.call(this.config.willUnmount)
   }
 

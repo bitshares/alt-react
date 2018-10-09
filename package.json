@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "Connect flux to react",
   "main": "lib/index.js",
+  "jsnext:main": "src/index.js",
   "scripts": {
     "build": "npm run clean && npm run transpile",
     "clean": "rimraf lib",
