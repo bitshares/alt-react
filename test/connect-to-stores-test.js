@@ -1,9 +1,10 @@
-import { jsdom } from 'jsdom'
+import jsdom from 'jsdom'
+const { JSDOM } = jsdom;
 import Alt from 'alt'
 import React from 'react'
 import ReactDom from 'react-dom'
 import ReactDomServer from 'react-dom/server'
-import connectToStores from '../'
+import { connect as connectToStores } from '../'
 import { assert } from 'chai'
 import sinon from 'sinon'
 import TestUtils from 'react-dom/test-utils'
@@ -29,7 +30,8 @@ const testStore = alt.createStore(
 export default {
   'connectToStores wrapper': {
     beforeEach() {
-      global.document = jsdom('<!doctype html><html><body></body></html>')
+      const { document } = (new JSDOM('<!doctype html><html><body></body></html>')).window
+      global.document = document
       global.window = global.document.defaultView
 
       alt.recycle()

@@ -17,8 +17,7 @@ export default class Connect extends React.Component {
         this.forceUpdate()
     }
   }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.config.willMount) this.call(this.config.willMount)
   }
 
@@ -37,7 +36,7 @@ export default class Connect extends React.Component {
     if (this.config.willUnmount) this.call(this.config.willUnmount)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.config.willReceiveProps) this.call(this.config.willReceiveProps)
   }
 
