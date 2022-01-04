@@ -7,7 +7,7 @@ export default (Component, config = {}) => {
     static contextTypes = Component.contextTypes || config.contextTypes || {}
 
     constructor(props, context) {
-      super(props, context)
+      super(props)
       this.setConnections(props, context, config)
     }
 
